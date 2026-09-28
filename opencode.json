@@ -1,0 +1,238 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "scrum-master",
+  "subagent_depth": 2,
+  "shell": "bash",
+  "instructions": [
+    "scrum/working-agreements.md",
+    "scrum/definition-of-done.md"
+  ],
+  "agent": {
+    "scrum-master": {
+      "description": "Scrum Master: facilitates every Scrum event, runs the sprint mechanics and drives continuous improvement. Does not assign work or write product code.",
+      "mode": "primary",
+      "color": "#8b5cf6",
+      "steps": 500,
+      "prompt": "{file:./.opencode/prompts/scrum-master.md}",
+      "permission": {
+        "edit": {
+          "*": "deny",
+          "scrum/*": "allow",
+          "scrum/product-vision.md": "deny",
+          "scrum/product-backlog.md": "deny",
+          "scrum/definition-of-ready.md": "deny",
+          "scrum/sprints/*/backlog/*": "deny",
+          "team/roster.md": "allow",
+          "team/knowledge/sm/*": "allow",
+          "team/channel/*-sm-to-*": "allow"
+        },
+        "bash": {
+          "*": "allow",
+          "git push*": "deny"
+        },
+        "task": {
+          "*": "deny",
+          "product-owner": "allow",
+          "dev-*": "allow"
+        },
+        "external_directory": {
+          "*": "deny"
+        },
+        "question": "allow",
+        "todowrite": "allow",
+        "webfetch": "allow"
+      }
+    },
+    "product-owner": {
+      "description": "Product Owner: owns the product vision, the ordered Product Backlog and the Definition of Ready; accepts or rejects stories; answers product questions.",
+      "mode": "all",
+      "color": "#f59e0b",
+      "steps": 80,
+      "prompt": "{file:./.opencode/prompts/product-owner.md}",
+      "permission": {
+        "edit": {
+          "*": "deny",
+          "scrum/product-vision.md": "allow",
+          "scrum/product-backlog.md": "allow",
+          "scrum/definition-of-ready.md": "allow",
+          "team/knowledge/po/*": "allow",
+          "team/channel/*-po-to-*": "allow",
+          "sandboxes/po/*": "allow"
+        },
+        "bash": {
+          "*": "allow",
+          "git push*": "deny"
+        },
+        "task": {
+          "*": "deny"
+        },
+        "external_directory": {
+          "*": "deny"
+        },
+        "question": "allow",
+        "todowrite": "allow",
+        "webfetch": "allow"
+      }
+    },
+    "dev-1": {
+      "description": "Developer dev-1 of the Scrum team (focus area: see team/roster.md). Works only in sandboxes/dev-1.",
+      "mode": "subagent",
+      "color": "#3b82f6",
+      "steps": 80,
+      "prompt": "You are **dev-1**, one of five Developers on the Scrum team. Handle: dev-1. Sandbox: sandboxes/dev-1. Knowledge folder: team/knowledge/dev-1. Sprint Backlog file: scrum/sprints/sprint-NN/backlog/dev-1.md. Port range: 3100-3199.\n\n{file:./.opencode/prompts/developer.md}",
+      "permission": {
+        "edit": {
+          "*": "deny",
+          "sandboxes/dev-1/*": "allow",
+          "team/knowledge/dev-1/*": "allow",
+          "scrum/sprints/*/backlog/dev-1.md": "allow",
+          "team/channel/*-dev-1-to-*": "allow"
+        },
+        "bash": {
+          "*": "allow",
+          "git push*": "deny"
+        },
+        "task": {
+          "*": "deny",
+          "dev-*": "allow",
+          "dev-1": "deny",
+          "product-owner": "allow"
+        },
+        "external_directory": {
+          "*": "deny"
+        },
+        "question": "deny",
+        "todowrite": "allow",
+        "webfetch": "allow"
+      }
+    },
+    "dev-2": {
+      "description": "Developer dev-2 of the Scrum team (focus area: see team/roster.md). Works only in sandboxes/dev-2.",
+      "mode": "subagent",
+      "color": "#10b981",
+      "steps": 80,
+      "prompt": "You are **dev-2**, one of five Developers on the Scrum team. Handle: dev-2. Sandbox: sandboxes/dev-2. Knowledge folder: team/knowledge/dev-2. Sprint Backlog file: scrum/sprints/sprint-NN/backlog/dev-2.md. Port range: 3200-3299.\n\n{file:./.opencode/prompts/developer.md}",
+      "permission": {
+        "edit": {
+          "*": "deny",
+          "sandboxes/dev-2/*": "allow",
+          "team/knowledge/dev-2/*": "allow",
+          "scrum/sprints/*/backlog/dev-2.md": "allow",
+          "team/channel/*-dev-2-to-*": "allow"
+        },
+        "bash": {
+          "*": "allow",
+          "git push*": "deny"
+        },
+        "task": {
+          "*": "deny",
+          "dev-*": "allow",
+          "dev-2": "deny",
+          "product-owner": "allow"
+        },
+        "external_directory": {
+          "*": "deny"
+        },
+        "question": "deny",
+        "todowrite": "allow",
+        "webfetch": "allow"
+      }
+    },
+    "dev-3": {
+      "description": "Developer dev-3 of the Scrum team (focus area: see team/roster.md). Works only in sandboxes/dev-3.",
+      "mode": "subagent",
+      "color": "#ef4444",
+      "steps": 80,
+      "prompt": "You are **dev-3**, one of five Developers on the Scrum team. Handle: dev-3. Sandbox: sandboxes/dev-3. Knowledge folder: team/knowledge/dev-3. Sprint Backlog file: scrum/sprints/sprint-NN/backlog/dev-3.md. Port range: 3300-3399.\n\n{file:./.opencode/prompts/developer.md}",
+      "permission": {
+        "edit": {
+          "*": "deny",
+          "sandboxes/dev-3/*": "allow",
+          "team/knowledge/dev-3/*": "allow",
+          "scrum/sprints/*/backlog/dev-3.md": "allow",
+          "team/channel/*-dev-3-to-*": "allow"
+        },
+        "bash": {
+          "*": "allow",
+          "git push*": "deny"
+        },
+        "task": {
+          "*": "deny",
+          "dev-*": "allow",
+          "dev-3": "deny",
+          "product-owner": "allow"
+        },
+        "external_directory": {
+          "*": "deny"
+        },
+        "question": "deny",
+        "todowrite": "allow",
+        "webfetch": "allow"
+      }
+    },
+    "dev-4": {
+      "description": "Developer dev-4 of the Scrum team (focus area: see team/roster.md). Works only in sandboxes/dev-4.",
+      "mode": "subagent",
+      "color": "#06b6d4",
+      "steps": 80,
+      "prompt": "You are **dev-4**, one of five Developers on the Scrum team. Handle: dev-4. Sandbox: sandboxes/dev-4. Knowledge folder: team/knowledge/dev-4. Sprint Backlog file: scrum/sprints/sprint-NN/backlog/dev-4.md. Port range: 3400-3499.\n\n{file:./.opencode/prompts/developer.md}",
+      "permission": {
+        "edit": {
+          "*": "deny",
+          "sandboxes/dev-4/*": "allow",
+          "team/knowledge/dev-4/*": "allow",
+          "scrum/sprints/*/backlog/dev-4.md": "allow",
+          "team/channel/*-dev-4-to-*": "allow"
+        },
+        "bash": {
+          "*": "allow",
+          "git push*": "deny"
+        },
+        "task": {
+          "*": "deny",
+          "dev-*": "allow",
+          "dev-4": "deny",
+          "product-owner": "allow"
+        },
+        "external_directory": {
+          "*": "deny"
+        },
+        "question": "deny",
+        "todowrite": "allow",
+        "webfetch": "allow"
+      }
+    },
+    "dev-5": {
+      "description": "Developer dev-5 of the Scrum team (focus area: see team/roster.md). Works only in sandboxes/dev-5.",
+      "mode": "subagent",
+      "color": "#ec4899",
+      "steps": 80,
+      "prompt": "You are **dev-5**, one of five Developers on the Scrum team. Handle: dev-5. Sandbox: sandboxes/dev-5. Knowledge folder: team/knowledge/dev-5. Sprint Backlog file: scrum/sprints/sprint-NN/backlog/dev-5.md. Port range: 3500-3599.\n\n{file:./.opencode/prompts/developer.md}",
+      "permission": {
+        "edit": {
+          "*": "deny",
+          "sandboxes/dev-5/*": "allow",
+          "team/knowledge/dev-5/*": "allow",
+          "scrum/sprints/*/backlog/dev-5.md": "allow",
+          "team/channel/*-dev-5-to-*": "allow"
+        },
+        "bash": {
+          "*": "allow",
+          "git push*": "deny"
+        },
+        "task": {
+          "*": "deny",
+          "dev-*": "allow",
+          "dev-5": "deny",
+          "product-owner": "allow"
+        },
+        "external_directory": {
+          "*": "deny"
+        },
+        "question": "deny",
+        "todowrite": "allow",
+        "webfetch": "allow"
+      }
+    }
+  }
+}
