@@ -1,0 +1,5 @@
+product/
+sandboxes/
+.opencode/logs/
+.opencode/node_modules/
+node_modules/
