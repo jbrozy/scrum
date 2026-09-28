@@ -103,11 +103,10 @@ that the permissions in `opencode.json` match the guard's ownership model.
 
 ## Starting over
 
-To throw away the product and all sprints (keeps the team setup files):
+To throw away the product and all sprints, restore `scrum/` and `team/` from the clean `team-template` tag:
 
 ```bash
-rm -rf product sandboxes scrum/sprints/sprint-* scrum/product-*.md scrum/definition-of-ready.md team/channel/2* team/knowledge/*/*.md
-git checkout -- scrum team
+rm -rf product sandboxes scrum team && git checkout team-template -- scrum team && git add -A && git commit -m "chore: start over"
 ```
 
-Then run `/kickoff` again.
+Then run `/kickoff` again. Your prompts, playbooks and settings are kept.
